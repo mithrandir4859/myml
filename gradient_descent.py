@@ -59,7 +59,13 @@ class Tests(unittest.TestCase):
         approximated_function = get_approximated_function(training_x, expected_y)
         assert_almost_equal(expected_y, approximated_function(training_x), 3)
         test_x = np.matrix("8 9 -1; 3 7 -8; 10 66 888")
-        self.failUnless(differ_insignificantly(test_x * expected_theta, approximated_function(test_x), 1), .01)
+        self.failUnless(differ_insignificantly(test_x * expected_theta, approximated_function(test_x), .01))
+        hard_test_x = np.random.random((100, 3))
+        expected = hard_test_x * expected_theta
+        actual = approximated_function(hard_test_x)
+        print(expected, actual)
+        self.failUnless(differ_insignificantly(expected, actual, .01))
+
 
 
 
